@@ -1,0 +1,45 @@
+/**
+ * NEW Apps Script project. Do NOT paste this into DailyLog.
+ * 1. spreadsheet.google.com → blank sheet
+ * 2. Extensions → Apps Script
+ * 3. Paste this file. Put the new spreadsheet ID below.
+ * 4. Deploy → New deployment → Web app
+ *    Execute as: Me
+ *    Who has access: Anyone
+ */
+const SCRIPT_VERSION = "lab-v1";
+const SHEET_ID = "PASTE_NEW_SPREADSHEET_ID_HERE";
+const SECRET = "pick-a-new-secret-not-the-dailylog-one";
+
+function doGet() {
+  return ContentService.createTextOutput(
+    JSON.stringify({ ok: true, version: SCRIPT_VERSION })
+  ).setMimeType(ContentService.MimeType.JSON);
+}
+
+function doPost(e) {
+  const body = JSON.parse(e.postData.contents);
+  if (body.secret !== SECRET) {
+    return json_({ ok: false, error: "bad secret" });
+  }
+  const ss = SpreadsheetApp.openById(SHEET_ID);
+  let sh = ss.getSheetByName("LAB");
+  if (!sh) sh = ss.insertSheet("LAB");
+  if (sh.getLastRow() === 0) {
+    sh.appendRow(["ts", "chapter", "note", "bleed", "done"]);
+  }
+  sh.appendRow([
+    new Date(),
+    String(body.chapter || ""),
+    String(body.note || ""),
+    String(body.bleed || ""),
+    String(body.done || ""),
+  ]);
+  return json_({ ok: true, version: SCRIPT_VERSION });
+}
+
+function json_(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(
+    ContentService.MimeType.JSON
+  );
+}
