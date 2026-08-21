@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!--
+    FILE: app/index.html
+    این پرونده را در Cursor باز کن. مرورگر همان را می‌خورد که اینجا می‌نویسی.
+    bundler در کار نیست. GitHub Pages هم همین فایل خام را سرو می‌کند.
+
+    WRITE L01 — روی تگ html این دو را بگذار:
+      lang="fa"
+      dir="rtl"
+    بدون dir=rtl متن فارسی چپ‌چین می‌شود و چرخ تاریخ بعداً می‌شکند.
+
+    WRITE L01b — این‌ها را داخل head تایپ کن (کپی خالی ممنوع، خط به خط):
+      <title>PWA from zero</title>
+      <link rel="stylesheet" href="styles.css" />
+      <link rel="manifest" href="manifest.json" />
+      <link rel="icon" href="icon.svg" type="image/svg+xml" />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;800&display=swap" rel="stylesheet" />
+
+    DEBUG L01
+      1) این فایل را با Live Server یا npx serve باز کن (file:// برای service worker کافی نیست).
+      2) راست‌کلیک → View page source
+      3) اگر title و linkها را ندیدی، ذخیره نکردی.
+      4) F12 → Console. خطاهای قرمز را بخوان، حدس نزن.
+  -->
+  <title>WRITE L01 title</title>
+</head>
+<body>
+  <!--
+    WRITE L02 — نوار چسبان. position:sticky را در styles.css می‌نویسی.
+    همین idها را عیناً بگذار چون app.js با getElementById همین‌ها را می‌گیرد.
+  -->
+  <header id="freeze">
+    <div id="clock">00:00.0</div>
+    <button type="button" id="btnStart">start</button>
+    <button type="button" id="btnPause">pause</button>
+    <button type="button" id="btnReset">reset</button>
+    <button type="button" id="btnMenu">menu</button>
+    <span id="swChip">SW</span>
+    <span id="quotaChip">quota</span>
+  </header>
+
+  <div id="layout">
+    <main id="main">
+      <h1>app</h1>
+      <p id="boot">اگر این را می‌بینی HTML لود شده. بعدی: styles.css بعد app.js</p>
+      <pre id="out" class="ltr">console + this box</pre>
+    </main>
+    <aside id="toc">
+      <!-- WRITE L02b — این فهرست باید با btnMenu جمع شود. JS را در app.js / L05 بنویس. -->
+      <p>TOC</p>
+      <a href="#l-html">html</a>
+      <a href="#l-sw">service worker</a>
+      <a href="#l-idb">IndexedDB</a>
+    </aside>
+  </div>
+
+  <!--
+    ترتیب script مهم است. idb.js اول، چون app.js از openDb استفاده می‌کند.
+    type=module و bundler نمی‌گذاریم تا GitHub Pages همان فایل را بدهد.
+  -->
+  <script src="idb.js"></script>
+  <script src="sync.js"></script>
+  <script src="app.js"></script>
+  <!--
+    WRITE L08 — بعد از اینکه sw.js را نوشتی، در app.js تابع registerSW را پر کن.
+    اینجا script اضافه نکن. ثبت service worker از صفحه است نه از خود sw.js.
+  -->
+</body>
+</html>

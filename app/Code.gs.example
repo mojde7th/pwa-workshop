@@ -1,15 +1,13 @@
 /**
- * NEW Apps Script project. Do NOT paste this into DailyLog.
- * 1. spreadsheet.google.com → blank sheet
- * 2. Extensions → Apps Script
- * 3. Paste this file. Put the new spreadsheet ID below.
- * 4. Deploy → New deployment → Web app
- *    Execute as: Me
- *    Who has access: Anyone
+ * NEW Apps Script. Not DailyLog.
+ * Sheet empty → Extensions → Apps Script → paste.
+ * Deploy → New deployment → Web app → Me → Anyone.
+ * After edits: editor Save, then Manage deployments → pencil → New version.
+ * Same /exec URL. Do not make Untitled project.
  */
 const SCRIPT_VERSION = "lab-v1";
-const SHEET_ID = "PASTE_NEW_SPREADSHEET_ID_HERE";
-const SECRET = "pick-a-new-secret-not-the-dailylog-one";
+const SHEET_ID = "PASTE_NEW_SPREADSHEET_ID";
+const SECRET = "new-secret-not-dailylog";
 
 function doGet() {
   return ContentService.createTextOutput(
@@ -22,19 +20,14 @@ function doPost(e) {
   if (body.secret !== SECRET) {
     return json_({ ok: false, error: "bad secret" });
   }
+  if (body.version && body.version !== SCRIPT_VERSION) {
+    return json_({ ok: false, error: "app/script mismatch", version: SCRIPT_VERSION });
+  }
   const ss = SpreadsheetApp.openById(SHEET_ID);
   let sh = ss.getSheetByName("LAB");
   if (!sh) sh = ss.insertSheet("LAB");
-  if (sh.getLastRow() === 0) {
-    sh.appendRow(["ts", "chapter", "note", "bleed", "done"]);
-  }
-  sh.appendRow([
-    new Date(),
-    String(body.chapter || ""),
-    String(body.note || ""),
-    String(body.bleed || ""),
-    String(body.done || ""),
-  ]);
+  if (sh.getLastRow() === 0) sh.appendRow(["ts", "payload"]);
+  sh.appendRow([new Date(), JSON.stringify(body.rows || body)]);
   return json_({ ok: true, version: SCRIPT_VERSION });
 }
 

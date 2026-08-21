@@ -1,0 +1,102 @@
+/*
+  FILE: app/styles.css
+  مرورگر این پرونده را جدا دانلود می‌کند. Network تب را باز کن، styles.css را ببین.
+  Status باید 200 باشد. اگر 404 است href در index.html غلط است.
+
+  Vazirmatn را در index.html لینک کردی. اینجا فقط family را صدا بزن.
+  font-size را کوچک نکن. این پروژه خواندنی است نه فشرده.
+*/
+
+html {
+  /* WRITE L03 — background و color را بگذار تا FOUC سیاه/سفید نپرد. */
+}
+
+body {
+  margin: 0;
+  font-family: Vazirmatn, Tahoma, sans-serif;
+  font-size: 21px;
+  line-height: 1.9;
+  /* WRITE L03b — background, color */
+}
+
+code, kbd, pre, .ltr, #clock, #out {
+  font-family: Consolas, "Cascadia Mono", monospace;
+  direction: ltr;
+  unicode-bidi: isolate;
+  text-align: left;
+}
+
+#clock {
+  font-size: 32px;
+  font-weight: 800;
+}
+
+/*
+  WRITE L04 freeze
+  position: sticky; top: 0; z-index: 30;
+  بدون این، کرنومتر با اسکرول می‌رود بالا.
+  freeze یعنی نوار تکان نخورد، نه اینکه کل صفحه fullscreen شود.
+*/
+#freeze {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  padding: 10px 14px;
+  /* WRITE: position sticky + background + border-bottom */
+}
+
+button {
+  font: inherit;
+  font-size: 18px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+/*
+  WRITE L05 layout + collapsible menu
+  TOC سمت راست در rtl: در grid ستون دوم visually راست است اگر dir=rtl روی html باشد.
+  جمع شدن منو = یک کلاس روی #layout نه fullscreen.
+  در app.js روی btnMenu می‌نویسی:
+    layout.classList.toggle("toc-off")
+*/
+#layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  min-height: 100vh;
+}
+
+#layout.toc-off {
+  grid-template-columns: 1fr 0;
+}
+
+#layout.toc-off #toc {
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+}
+
+#toc {
+  border-right: 1px solid #333;
+  padding: 12px;
+}
+
+#toc a {
+  display: block;
+}
+
+#main {
+  padding: 18px 20px 80px;
+}
+
+#out {
+  min-height: 4em;
+  padding: 12px;
+  overflow: auto;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 800px) {
+  #layout { grid-template-columns: 1fr; }
+  #layout.toc-off #toc { display: none; }
+}

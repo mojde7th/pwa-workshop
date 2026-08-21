@@ -3,165 +3,150 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b1020" />
-  <title>PWA Lab</title>
-  <link rel="manifest" href="./manifest.json" />
+  <title>from zero — studio</title>
   <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0b1020;
-      --panel: #121a30;
-      --line: #243049;
-      --txt: #e8eefc;
-      --dim: #93a0bf;
-      --acc: #3ee0c2;
-      --warn: #ffb020;
-      --hot: #ff5d7a;
-      --ok: #5ee07a;
-      --hdr: 92px;
-      --toc: 280px;
+      --bg: #1a1424;
+      --panel: #241c32;
+      --line: #3a3148;
+      --txt: #f4ead8;
+      --dim: #c4b49a;
+      --gold: #e8b86d;
+      --mint: #7dcea0;
+      --rose: #e07a8a;
+      --hdr: 96px;
+      --toc: 300px;
     }
     * { box-sizing: border-box; }
     html, body {
       margin: 0;
       background: var(--bg);
       color: var(--txt);
-      font: 16px/1.75 "Segoe UI", Tahoma, sans-serif;
+      font-family: Vazirmatn, Tahoma, sans-serif;
+      font-size: 21px;
+      line-height: 1.9;
     }
-    code, kbd, .mono {
+    code, kbd, pre, .mono {
       font-family: Consolas, "Cascadia Mono", monospace;
-      font-size: 0.92em;
+      font-size: 18px;
       direction: ltr;
       unicode-bidi: isolate;
     }
     kbd {
-      background: #1b2540;
+      background: #120e1a;
       border: 1px solid var(--line);
-      border-bottom-width: 2px;
-      border-radius: 6px;
-      padding: 0 6px;
+      border-radius: 8px;
+      padding: 0 8px;
+      font-size: 17px;
     }
-    a { color: var(--acc); }
+    a { color: var(--gold); }
     .freeze {
       position: sticky;
       top: 0;
       z-index: 40;
-      background: rgba(11, 16, 32, 0.94);
-      backdrop-filter: blur(10px);
+      background: rgba(26, 20, 36, 0.96);
       border-bottom: 1px solid var(--line);
-      padding: 8px 12px;
-      display: grid;
-      gap: 8px;
+      padding: 10px 14px;
     }
     .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
     .clock {
-      font: 700 28px/1 Consolas, monospace;
-      color: var(--warn);
+      font: 800 34px/1 Consolas, monospace;
+      color: var(--gold);
       min-width: 7ch;
       direction: ltr;
     }
-    button, .chip {
-      background: #1b2540;
+    button {
+      font: 600 18px Vazirmatn, sans-serif;
+      background: #120e1a;
       color: var(--txt);
       border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 6px 10px;
+      border-radius: 12px;
+      padding: 8px 12px;
       cursor: pointer;
     }
-    button:hover { border-color: var(--acc); }
-    .chip { font-size: 12px; color: var(--dim); }
-    .chip.on { color: var(--ok); border-color: var(--ok); }
-    .chip.off { color: var(--hot); border-color: var(--hot); }
+    button:hover { border-color: var(--gold); }
     .layout {
       display: grid;
       grid-template-columns: 1fr var(--toc);
-      gap: 0;
-      min-height: calc(100vh - var(--hdr));
     }
-    .layout.notoc { grid-template-columns: 1fr; }
-    .layout.notoc #toc { display: none; }
-    main { padding: 18px 20px 80px; max-width: 920px; }
+    .layout.toc-off { grid-template-columns: 1fr 0; }
+    .layout.toc-off #toc { overflow: hidden; padding: 0; border: 0; }
     #toc {
       position: sticky;
       top: var(--hdr);
       height: calc(100vh - var(--hdr));
       overflow: auto;
       border-right: 1px solid var(--line);
-      background: #0e1528;
-      padding: 10px;
-    }
-    #toc details { margin-bottom: 6px; }
-    #toc summary {
-      cursor: pointer;
-      color: var(--acc);
-      font-weight: 700;
-      list-style: none;
+      background: #140f1e;
+      padding: 12px;
     }
     #toc a {
       display: block;
       color: var(--dim);
       text-decoration: none;
-      padding: 4px 6px;
-      border-radius: 8px;
+      padding: 6px 8px;
+      border-radius: 10px;
+      font-size: 18px;
     }
-    #toc a:hover, #toc a.here { background: #1b2540; color: var(--txt); }
-    #toc a.done { color: var(--ok); }
-    #toc a.bled::after { content: " ●"; color: var(--hot); }
-    h1 { margin: 0 0 8px; font-size: 28px; }
-    h2 { margin: 36px 0 10px; color: var(--acc); scroll-margin-top: 110px; }
+    #toc a:hover, #toc a.here { background: #2a2238; color: var(--txt); }
+    #toc a.done { color: var(--mint); }
+    #toc a.bled::after { content: " ●"; color: var(--rose); }
+    main { padding: 20px 24px 96px; max-width: 980px; }
+    h1 { font-size: 36px; margin: 0 0 12px; }
+    h2 { font-size: 28px; color: var(--gold); scroll-margin-top: 120px; margin: 40px 0 12px; }
     .card {
       background: var(--panel);
       border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 14px;
-      margin: 12px 0;
+      border-radius: 18px;
+      padding: 16px 18px;
+      margin: 14px 0;
     }
-    .lab { border-color: #2a3d6a; }
-    .do { color: var(--warn); font-weight: 700; }
-    pre {
-      background: #070b16;
+    .path {
+      background: #120e1a;
       border: 1px solid var(--line);
       border-radius: 12px;
-      padding: 12px;
-      overflow: auto;
-      direction: ltr;
-      text-align: left;
-      color: #cfe4ff;
-      white-space: pre-wrap;
-    }
-    .out {
-      min-height: 2.4em;
-      background: #070b16;
-      border: 1px dashed var(--line);
-      border-radius: 12px;
-      padding: 10px;
+      padding: 10px 12px;
+      margin: 10px 0;
       direction: ltr;
       text-align: left;
       font-family: Consolas, monospace;
+      font-size: 18px;
+    }
+    pre {
+      background: #120e1a;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      overflow: auto;
+      direction: ltr;
+      text-align: left;
+      font-size: 17px;
       white-space: pre-wrap;
     }
-    .flags { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
-    label.flag { display: flex; gap: 6px; align-items: center; cursor: pointer; }
-    .bleed { outline: 2px solid var(--hot); }
-    .meter {
-      height: 10px;
-      background: #070b16;
-      border-radius: 99px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-    }
-    .meter > i { display: block; height: 100%; width: 0; background: var(--acc); }
+    .do { color: var(--gold); font-weight: 800; }
+    .flags { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 12px; }
+    label.flag { display: flex; gap: 8px; align-items: center; cursor: pointer; }
+    .bleed { outline: 3px solid var(--rose); }
     .search {
       width: 100%;
-      background: #070b16;
-      border: 1px solid var(--line);
+      font: 18px Vazirmatn, sans-serif;
+      background: #120e1a;
       color: var(--txt);
-      border-radius: 10px;
-      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 12px;
     }
+    .meter { height: 10px; background: #120e1a; border-radius: 99px; overflow: hidden; margin-top: 8px; }
+    .meter > i { display: block; height: 100%; width: 0; background: var(--gold); }
+    details.card summary { cursor: pointer; font-weight: 800; color: var(--gold); }
     @media (max-width: 900px) {
-      .layout { grid-template-columns: 1fr; }
-      #toc { position: relative; top: 0; height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
+      .layout, .layout.toc-off { grid-template-columns: 1fr; }
+      #toc { position: relative; top: 0; height: auto; }
+      .layout.toc-off #toc { display: none; }
     }
   </style>
 </head>
@@ -172,335 +157,350 @@
       <button type="button" id="swStart">start</button>
       <button type="button" id="swPause">pause</button>
       <button type="button" id="swReset">reset</button>
-      <span class="chip" id="onlineChip">online</span>
-      <span class="chip" id="swChip">service worker</span>
-      <span class="chip" id="quotaChip">quota</span>
-      <button type="button" id="tocToggle">TOC</button>
-      <button type="button" id="focusBtn">focus</button>
-      <label class="flag"><input type="checkbox" id="freezeLock" checked /> freeze</label>
+      <button type="button" id="btnMenu">menu</button>
+      <span id="onlineChip" class="mono">online</span>
     </div>
-    <div class="meter" title="chapters done"><i id="progBar"></i></div>
+    <div class="meter"><i id="progBar"></i></div>
   </header>
 
   <div class="layout" id="layout">
     <main id="main">
-      <h1>PWA Lab</h1>
-      <p>این صفحه خودش آزمایش است. اپ قبلی را باز نکن. هر اصطلاح انگلیسی را همان‌طور بخوان. اگر گیر کردی روی همان بلوک بزن:</p>
-      <p><code>اینجا خوندم</code></p>
-      <p>دفعهٔ بعد همان‌جا زرد است و اسکرول همان نقطه برمی‌گردد.</p>
-
+      <h1>کد را در فایل بنویس</h1>
       <div class="card">
-        <input class="search" id="q" placeholder="search: service worker, IndexedDB, manifest, shortcut..." />
+        <p>این صفحه نقشه و دیباگ است. اپ را اینجا تمام‌شده نده‌ام. پرونده‌ها را در ادیتور باز کن:</p>
+        <div class="path">D:\pwa-workshop\app\</div>
+        <p>هر درس یک <code>WRITE Lxx</code> داخل همان فایل است. همان را پر کن، ذخیره کن، مرورگر را Reload کن، <kbd>F12</kbd> را بخوان.</p>
+        <p>منو با دکمهٔ <code>menu</code> جمع می‌شود. تمام‌صفحه لازم نیست.</p>
+      </div>
+      <div class="card">
+        <input class="search" id="q" placeholder="search: service worker, IndexedDB, manifest..." />
       </div>
 
-      <h2 id="c-map">نقشه</h2>
+      <h2 id="how">چطور کار کن</h2>
       <div class="card">
-        <p>ترتیب دست:</p>
         <ol>
-          <li>کرنومتر بالا را <code>start</code> کن.</li>
-          <li>از <code>Windows shortcut</code> شروع کن اگر میانبر را پیدا نکردی.</li>
-          <li>بعد <code>service worker</code> را با دست در <code>DevTools</code> ببین.</li>
-          <li>بعد <code>manifest.json</code> باید <code>200</code> بدهد.</li>
-          <li>بعد سهم <code>IndexedDB</code> را از خود مرورگر بگیر، حدس نزن.</li>
+          <li>در Cursor پوشه را باز کن، نه مخزن اپ قبلی.</li>
         </ol>
-      </div>
-
-      <h2 id="c-win">Windows shortcut</h2>
-      <div class="card lab" data-lab="win">
-        <p class="do">این کار را الان بکن. حدس نزن.</p>
-        <p>بعد از نصب <code>PWA</code> در <code>Edge</code> معمولاً فایل میانبر داخل اینجا نیست:</p>
-        <pre>%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs</pre>
-        <p>چون <code>Edge</code> آن را مثل برنامهٔ کلاسیک ویندوز ثبت می‌کند، نه یک <code>.lnk</code> داخل استارت‌منو. برای همین <code>Send to → Desktop</code> روی چیزی که پیدا نمی‌کنی کار نمی‌کند.</p>
-        <p class="do">مسیر درست ۱</p>
-        <ol>
-          <li>نوار آدرس <code>Edge</code>:</li>
-        </ol>
-        <pre>edge://apps</pre>
+        <div class="path">D:\pwa-workshop</div>
         <ol start="2">
-          <li>کارت اپ را پیدا کن.</li>
-          <li>روی <code>⋯</code> بزن.</li>
-          <li><code>Create shortcut</code></li>
-          <li>تیک <code>Desktop</code> را بگذار. اگر خواستی <code>Start menu</code> هم.</li>
+          <li>اپ را با پروتکل <code>http</code> باز کن. <code>file://</code> برای <code>service worker</code> کافی نیست.</li>
         </ol>
-        <p class="do">مسیر درست ۲ اگر کارت را در <code>edge://apps</code> دیدی ولی میانبر دسکتاپ نیامد</p>
-        <ol>
-          <li><kbd>Win</kbd> + <kbd>R</kbd></li>
-          <li>این را عیناً بگذار:</li>
-        </ol>
-        <pre>shell:AppsFolder</pre>
+        <pre>npx --yes serve "D:\pwa-workshop\app" -p 5500</pre>
+        <p>بعد:</p>
+        <div class="path">http://localhost:5500</div>
         <ol start="3">
-          <li>نام اپ را پیدا کن.</li>
-          <li>راست‌کلیک → <code>Create shortcut</code></li>
-          <li>ویندوز می‌گوید میانبر باید روی دسکتاپ ساخته شود. <code>Yes</code>.</li>
+          <li>کنسول را باز بگذار. هر تابع نانوشته <code>Error: WRITE ...</code> می‌دهد. همان خط را در فایل پیدا کن و بنویس.</li>
         </ol>
-        <p class="do">مسیر درست ۳ پین بدون فایل میانبر</p>
+      </div>
+
+      <h2 id="l01">L01 html</h2>
+      <div class="card lab" data-lab="l01">
+        <p class="do">باز کن</p>
+        <div class="path">app\index.html</div>
+        <p>روی تگ <code>html</code> بگذار:</p>
+        <pre>lang="fa" dir="rtl"</pre>
+        <p><code>link</code> برای <code>styles.css</code> و <code>manifest.json</code> و <code>Vazirmatn</code> را خط به خط تایپ کن. کامنت داخل فایل همان دستور است.</p>
+        <p class="do">DEBUG</p>
         <ol>
-          <li>استارت را باز کن، اسم اپ را جستجو کن.</li>
-          <li>راست‌کلیک → <code>Pin to Start</code> یا <code>Pin to taskbar</code>.</li>
+          <li>View page source — اگر <code>dir="rtl"</code> نیست، ذخیره نشده.</li>
+          <li>Network → <code>index.html</code> → Status باید <code>200</code> باشد.</li>
         </ol>
-        <p>اگر <code>Open file location</code> خاکستری است یعنی <code>.lnk</code> در پوشهٔ برنامه‌ها وجود ندارد. دنبال آن پوشه نگرد. از <code>shell:AppsFolder</code> بساز.</p>
+        <div class="flags" data-id="l01"></div>
+      </div>
+
+      <h2 id="l02">L02 freeze + TOC</h2>
+      <div class="card lab" data-lab="l02">
+        <p class="do">باز کن</p>
+        <div class="path">app\styles.css</div>
+        <p>برای <code>#freeze</code> بنویس:</p>
+        <pre>position: sticky;
+top: 0;
+z-index: 30;</pre>
+        <p>برای جمع‌شدن منو کلاس <code>toc-off</code> را کامل کن. fullscreen ننویس.</p>
+        <div class="flags" data-id="l02"></div>
+      </div>
+
+      <h2 id="l03">L03 $ و boot</h2>
+      <div class="card lab" data-lab="l03">
+        <div class="path">app\app.js</div>
+        <p>تابع <code>$</code> را پر کن. بدون آن <code>getElementById</code> هر دکمه می‌میرد.</p>
+        <p class="do">DEBUG</p>
+        <ol>
+          <li>Console: اگر <code>WRITE $ in app.js L03</code> دیدی، هنوز برنگشته.</li>
+          <li>Sources → <code>app.js</code> → روی <code>return</code> بریک‌پوینت بگذار → دکمه را بزن → Step.</li>
+        </ol>
+        <div class="flags" data-id="l03"></div>
+      </div>
+
+      <h2 id="l04">L04 stopwatch</h2>
+      <div class="card lab" data-lab="l04">
+        <div class="path">app\app.js</div>
+        <p>آبجکت <code>clock</code>: <code>render start pause reset persist</code></p>
+        <p><code>localStorage</code> برای <code>fromzero-clock</code> تا Refresh صفر نشود.</p>
+        <p class="do">DEBUG</p>
+        <ol>
+          <li>Application → Local Storage → کلید را بعد از start ببین.</li>
+          <li>اگر عدد تکان نمی‌خورد، <code>setInterval</code> ننوشتی یا <code>#clock</code> در HTML نیست.</li>
+        </ol>
+        <div class="flags" data-id="l04"></div>
+      </div>
+
+      <h2 id="l05">L05 menu</h2>
+      <div class="card lab" data-lab="l05">
+        <div class="path">app\app.js</div>
+        <p><code>setupMenu</code> را پر کن. فقط</p>
+        <pre>layout.classList.toggle("toc-off")</pre>
+        <div class="flags" data-id="l05"></div>
+      </div>
+
+      <h2 id="l06">L06 manifest.json</h2>
+      <div class="card lab" data-lab="l06">
+        <div class="path">app\manifest.json</div>
+        <p>الان <code>{}</code> است. JSON کامنت قبول نمی‌کند. این کلیدها را خودت تایپ کن:</p>
+        <pre>{
+  "name": "PWA from zero",
+  "short_name": "fromzero",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#14101c",
+  "theme_color": "#14101c",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}</pre>
+        <p class="do">DEBUG — مانیفست باید ۲۰۰ بدهد</p>
+        <ol>
+          <li>در کنسول صفحهٔ <code>app</code> بعد از نوشتن <code>probeManifest</code>:</li>
+        </ol>
+        <pre>await probeManifest()</pre>
+        <ol start="2">
+          <li>Network → <code>manifest.json</code> → <code>Status 200</code></li>
+          <li>اگر <code>404</code> است <code>link rel="manifest"</code> در HTML نیست یا مسیر غلط است.</li>
+          <li>اگر <code>200</code> از <code>ServiceWorker</code> است و فایل را عوض کردی ولی همان بدنهٔ کهنه است: <code>Unregister</code> بعد <code>Clear site data</code> بعد <kbd>Ctrl</kbd>+<kbd>F5</kbd></li>
+        </ol>
+        <p>نصب <code>PWA</code> بدون این <code>200</code> نمی‌آید. <code>service worker</code> کهنه یعنی پوسته و آیکون قدیم می‌ماند.</p>
+        <div class="flags" data-id="l06"></div>
+      </div>
+
+      <h2 id="l07">L07 probeManifest</h2>
+      <div class="card lab" data-lab="l07">
+        <div class="path">app\app.js</div>
+        <p>تابع <code>probeManifest</code> را با <code>fetch</code> پر کن. <code>res.status</code> را در <code>#out</code> بنویس.</p>
+        <div class="flags" data-id="l07"></div>
+      </div>
+
+      <h2 id="l08">L08 registerSW</h2>
+      <div class="card lab" data-lab="l08">
+        <div class="path">app\app.js</div>
+        <p><code>service worker</code> فایل جاوااسکریپتی است که مرورگر جدا از تب اجرا می‌کند. تا <code>register</code> نکنی، <code>sw.js</code> روی دیسک هیچ کاری نمی‌کند.</p>
+        <pre>await navigator.serviceWorker.register("./sw.js")</pre>
+        <p class="do">DEBUG</p>
+        <ol>
+          <li>Application → Service Workers</li>
+          <li>باید <code>sw.js</code> با <code>activated and is running</code></li>
+          <li>اگر <code>file://</code> است خطا در Console: secure origin. همان <code>npx serve</code> را برگردان.</li>
+        </ol>
+        <div class="flags" data-id="l08"></div>
+      </div>
+
+      <h2 id="l09">L09 install</h2>
+      <div class="card lab" data-lab="l09">
+        <div class="path">app\sw.js</div>
+        <p>شنوندهٔ <code>install</code> را پر کن. <code>caches.open</code> + <code>addAll</code> + <code>skipWaiting</code></p>
+        <p class="do">DEBUG</p>
+        <ol>
+          <li>Application → Cache Storage → <code>fromzero-v1</code></li>
+          <li>باید <code>index.html</code> و <code>app.js</code> داخلش باشد.</li>
+          <li>اگر خالی است یکی از مسیرهای <code>SHELL</code> تا <code>404</code> خورده و <code>addAll</code> کل را رد کرده.</li>
+        </ol>
+        <div class="flags" data-id="l09"></div>
+      </div>
+
+      <h2 id="l10">L10 activate</h2>
+      <div class="card lab" data-lab="l10">
+        <div class="path">app\sw.js</div>
+        <p>کش‌های نام‌نابرابر را <code>delete</code> کن. <code>clients.claim()</code></p>
+        <div class="flags" data-id="l10"></div>
+      </div>
+
+      <h2 id="l11">L11 fetch network-first</h2>
+      <div class="card lab" data-lab="l11">
+        <div class="path">app\sw.js</div>
+        <p><code>cache-first</code> یعنی اگر <code>app.js</code> یک‌بار کش شد، فایل جدید روی دیسک را تا ابد نمی‌بینی. برای همین <code>network-first</code> بنویس: اول <code>fetch</code>، بعد <code>cache.put</code>، اگر شبکه مرد <code>caches.match</code>.</p>
+        <p><code>POST</code> را رد نکن، همان اول <code>return</code>. <code>Apps Script</code> نباید از کش جواب بگیرد.</p>
+        <p class="do">DEBUG کهنه</p>
+        <ol>
+          <li>یک کلمه در <code>index.html</code> عوض کن، <code>CACHE</code> را عوض نکن، Reload.</li>
+          <li>Network → ستون Size: <code>from ServiceWorker</code> یعنی از کش آمده.</li>
+          <li>اگر متن کهنه ماند و <code>network-first</code> نوشتی، Unregister و Clear site data.</li>
+          <li>بعد از هر تغییر منطق کش، <code>fromzero-v1</code> را به <code>v2</code> ببر.</li>
+        </ol>
+        <div class="flags" data-id="l11"></div>
+      </div>
+
+      <h2 id="l12">L12 IndexedDB open</h2>
+      <div class="card lab" data-lab="l12">
+        <div class="path">app\idb.js</div>
+        <p><code>openDb</code> را پر کن. <code>onupgradeneeded</code> فقط وقتی <code>IDB_VERSION</code> بالاتر می‌رود.</p>
+        <p class="do">DEBUG</p>
+        <ol>
+          <li>Application → IndexedDB → <code>fromzero</code></li>
+          <li>Console:</li>
+        </ol>
+        <pre>await quotaReport()</pre>
+        <p>عدد <code>quota</code> سقف این <code>origin</code> است، معمولاً بخشی از دیسک آزاد، نه چند مگابایت ثابت.</p>
+        <div class="flags" data-id="l12"></div>
+      </div>
+
+      <h2 id="l13">L13 idbAdd</h2>
+      <div class="card lab" data-lab="l13">
+        <div class="path">app\idb.js</div>
+        <p>تراکنش <code>readwrite</code> و <code>add</code> با <code>synced: 0</code></p>
+        <pre>await idbAdd("hello")</pre>
+        <div class="flags" data-id="l13"></div>
+      </div>
+
+      <h2 id="l14">L14 idbAll</h2>
+      <div class="card lab" data-lab="l14">
+        <div class="path">app\idb.js</div>
+        <pre>await idbAll()</pre>
+        <div class="flags" data-id="l14"></div>
+      </div>
+
+      <h2 id="l15">L15 queued</h2>
+      <div class="card lab" data-lab="l15">
+        <div class="path">app\idb.js</div>
+        <p>فقط ردیف‌های <code>synced === 0</code>. این صف است. اگر خالی بود همگام‌سازی را خطا نشان نده.</p>
+        <div class="flags" data-id="l15"></div>
+      </div>
+
+      <h2 id="l16">L16 GitHub down</h2>
+      <div class="card lab" data-lab="l16">
+        <div class="path">app\app.js</div>
+        <p><code>probeOrigin</code> را پر کن. بعد Network → تیک <code>Offline</code> → Reload.</p>
+        <p>اگر <code>service worker</code> و <code>Cache Storage</code> پر باشد صفحه می‌ماند. این همان «اگر گیت‌هاب بخوابد» برای فایل استاتیک است: <code>github.io</code> جواب نمی‌دهد، پوسته از کش می‌آید، <code>IndexedDB</code> روی دستگاه می‌ماند. همگام‌سازی شیت ربط به گیت‌هاب ندارد؛ آن <code>script.google.com</code> است.</p>
+        <div class="flags" data-id="l16"></div>
+      </div>
+
+      <h2 id="l17">L17 no bundler</h2>
+      <div class="card lab" data-lab="l17">
+        <p>در آدرس بار بعد از لود اپ:</p>
+        <pre>./app.js</pre>
+        <p>متن خامی که نوشتی را می‌بینی. <code>Vite</code> / <code>webpack</code> اینجا نیست. <code>GitHub Pages</code> همان <code>git push</code> را سرو می‌کند.</p>
+        <div class="flags" data-id="l17"></div>
+      </div>
+
+      <h2 id="l18">L18 Apps Script ping</h2>
+      <div class="card lab" data-lab="l18">
+        <div class="path">app\sync.js</div>
+        <div class="path">app\Code.gs.example</div>
+        <p>پروژهٔ اسکریپت جدید، نه اپ قبلی. <code>pingScript</code> را بنویس. <code>version</code> باید</p>
+        <pre>lab-v1</pre>
+        <p>اگر ادیتور را Save کردی و مداد استقرار را نزدی، <code>/exec</code> کهنه است.</p>
+        <div class="flags" data-id="l18"></div>
+      </div>
+
+      <h2 id="l19">L19 POST text/plain</h2>
+      <div class="card lab" data-lab="l19">
+        <div class="path">app\sync.js</div>
+        <p><code>Content-Type: application/json</code> یعنی <code>OPTIONS</code> پیش‌پرواز. <code>Apps Script</code> آن را درست جواب نمی‌دهد. <code>text/plain</code> بفرست.</p>
+        <div class="flags" data-id="l19"></div>
+      </div>
+
+      <h2 id="l20">L20 boot</h2>
+      <div class="card lab" data-lab="l20">
+        <div class="path">app\app.js</div>
+        <p><code>boot</code> را پر کن: ساعت، منو، سهم، <code>registerSW</code>. هر کدام در <code>try</code> جدا تا یک <code>WRITE</code> کل صفحه را نکشد.</p>
+        <div class="flags" data-id="l20"></div>
+      </div>
+
+      <h2 id="win">Windows shortcut</h2>
+      <div class="card lab" data-lab="win">
+        <p>بعد از نصب <code>PWA</code> معمولاً میانبر داخل اینجا نیست:</p>
+        <pre>%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs</pre>
+        <p>برای همین <code>Send to → Desktop</code> چیزی پیدا نمی‌کند.</p>
+        <p class="do">دست</p>
+        <pre>edge://apps</pre>
+        <p>سه نقطه روی کارت → <code>Create shortcut</code> → تیک Desktop.</p>
+        <p>اگر باز هم فایل نبود:</p>
+        <pre>shell:AppsFolder</pre>
+        <p><kbd>Win</kbd>+<kbd>R</kbd>، این را بگذار، راست‌کلیک روی نام اپ → <code>Create shortcut</code> → Yes.</p>
+        <p>اگر <code>Open file location</code> خاکستری است یعنی <code>.lnk</code> در استارت‌منو وجود ندارد. دنبال آن پوشه نگرد.</p>
         <div class="row">
           <button type="button" data-copy="edge://apps">copy edge://apps</button>
           <button type="button" data-copy="shell:AppsFolder">copy shell:AppsFolder</button>
-          <button type="button" data-copy="%APPDATA%\Microsoft\Windows\Start Menu\Programs">copy Start Menu path</button>
         </div>
         <div class="flags" data-id="win"></div>
       </div>
-
-      <h2 id="c-sw">service worker چیست، با دست</h2>
-      <div class="card lab" data-lab="sw">
-        <p><code>service worker</code> یک فایل جاوااسکریپت است که مرورگر جدا از تب اجرا می‌کند. بین صفحه و شبکه می‌نشیند. درخواست <code>GET</code> را می‌تواند از شبکه بگیرد یا از <code>Cache Storage</code> جواب بدهد.</p>
-        <p class="do">الان روی همین صفحه</p>
-        <ol>
-          <li><kbd>F12</kbd></li>
-          <li>تب <code>Application</code> (در <code>Chrome/Edge</code>)</li>
-          <li>چپ: <code>Service Workers</code></li>
-          <li>باید <code>sw.js</code> این پروژه را ببینی، <code>Status</code> معمولاً <code>activated and is running</code></li>
-          <li>پایین‌تر: <code>Cache Storage</code> → <code>pwa-lab-v1</code> → باید <code>index.html</code> و <code>manifest.json</code> داخلش باشد</li>
-        </ol>
-        <p>اگر آنجا چیزی نیست، یعنی هنوز ثبت نشده. دکمهٔ زیر را بزن، بعد همان تب را Refresh کن.</p>
-        <div class="row">
-          <button type="button" id="swReg">register sw.js</button>
-          <button type="button" id="swUnreg">unregister</button>
-          <button type="button" id="swStatus">read status</button>
-        </div>
-        <div class="out" id="swOut">—</div>
-        <p class="do">آزمایش قطع شبکه</p>
-        <ol>
-          <li>در <code>DevTools</code> تب <code>Network</code> → تیک <code>Offline</code></li>
-          <li>صفحه را Reload کن</li>
-          <li>اگر <code>service worker</code> و <code>Cache Storage</code> پر باشد، همین صفحه باید باز بماند</li>
-          <li>تیک <code>Offline</code> را بردار</li>
-        </ol>
-        <p>این یعنی <code>service worker</code>: وقتی شبکه مرد، فایل‌های کش‌شده را می‌دهد. نظریه جدا ندارد. همان چیزی است که دیدی.</p>
-        <div class="flags" data-id="sw"></div>
-      </div>
-
-      <h2 id="c-manifest">manifest باید ۲۰۰ بدهد</h2>
-      <div class="card lab" data-lab="manifest">
-        <p>نصب <code>PWA</code> وقتی شروع می‌شود که مرورگر این فایل را با <code>HTTP 200</code> بگیرد:</p>
-        <pre>./manifest.json</pre>
-        <p>اگر <code>404</code> یا <code>Failed</code> باشد، دکمهٔ نصب نمی‌آید. اگر <code>service worker</code> کهنه باشد، گاهی نسخهٔ قدیمی <code>manifest</code> را از کش می‌دهد؛ نصب کهنه می‌ماند.</p>
-        <p class="do">دست ۱ روی همین فایل</p>
-        <div class="row">
-          <button type="button" id="manFetch">fetch manifest.json</button>
-          <button type="button" id="manHard">fetch with cache: reload</button>
-        </div>
-        <div class="out" id="manOut">—</div>
-        <p class="do">دست ۲ در Network</p>
-        <ol>
-          <li><kbd>F12</kbd> → <code>Network</code></li>
-          <li>فیلتر: <code>manifest</code></li>
-          <li>Reload</li>
-          <li>روی ردیف <code>manifest.json</code> کلیک کن</li>
-          <li>نگاه کن: <code>Status</code> باید <code>200</code> باشد</li>
-          <li>ستون <code>Size</code>: اگر نوشت <code>(from ServiceWorker)</code> یعنی از کش آمده، نه لزوماً فایل تازه روی دیسک</li>
-        </ol>
-        <p>اگر <code>200</code> از <code>ServiceWorker</code> است و فایل روی گیت‌هاب عوض شده ولی آیکون/نام کهنه است:</p>
-        <ol>
-          <li><code>Application</code> → <code>Service Workers</code> → <code>Unregister</code></li>
-          <li><code>Application</code> → <code>Storage</code> → <code>Clear site data</code></li>
-          <li>Reload سخت:</li>
-        </ol>
-        <pre>Ctrl + F5</pre>
-        <div class="flags" data-id="manifest"></div>
-      </div>
-
-      <h2 id="c-stale">service worker کهنه</h2>
-      <div class="card lab" data-lab="stale">
-        <p>در <code>sw.js</code> این پروژه نام کش این است:</p>
-        <pre>pwa-lab-v1</pre>
-        <p>اگر فایل‌ها را عوض کنی و این نام را عوض نکنی، مرورگر ممکن است پوستهٔ قدیمی را نگه دارد. راه عملی که خودت ببینی:</p>
-        <ol>
-          <li><code>Application</code> → <code>Cache Storage</code> → <code>pwa-lab-v1</code> را باز کن</li>
-          <li>یک فایل را از لیست نگاه کن</li>
-          <li><code>Unregister</code> روی <code>service worker</code></li>
-          <li>کش را Delete کن</li>
-          <li>Reload؛ باید دوباره <code>install</code> شود و لیست تازه پر شود</li>
-        </ol>
-        <p>در اپ واقعی، هر بار که <code>app.js</code> عوض می‌شود باید هم کوئری</p>
-        <pre>app.js?v=36</pre>
-        <p>هم نام <code>CACHE</code> در <code>sw.js</code> عوض شود. وگرنه نصب کهنه می‌ماند حتی اگر گیت‌هاب فایل جدید داشته باشد.</p>
-        <div class="flags" data-id="stale"></div>
-      </div>
-
-      <h2 id="c-idb">IndexedDB چقدر جا دارد</h2>
-      <div class="card lab" data-lab="idb">
-        <p>حدس نزن. مرورگر عدد را می‌دهد:</p>
-        <pre>navigator.storage.estimate()</pre>
-        <p>خروجی دو عدد بایت است: <code>usage</code> و <code>quota</code>. در <code>Chromium</code> معمولاً سهم خیلی بزرگ است، نزدیک بخشی از دیسک آزاد، نه چند مگابایت ثابت. همین صفحه آن را زنده نشان می‌دهد.</p>
-        <div class="row">
-          <button type="button" id="idbEst">estimate()</button>
-          <button type="button" id="idbWrite">write test row</button>
-          <button type="button" id="idbRead">read all</button>
-          <button type="button" id="idbClear">clear lab db</button>
-        </div>
-        <div class="out" id="idbOut">—</div>
-        <p>این دیتابیس مال همین لَب است، جدا از اپ قبلی:</p>
-        <pre>pwa-lab / notes</pre>
-        <p class="do">در DevTools ببین</p>
-        <ol>
-          <li><code>Application</code> → <code>IndexedDB</code> → <code>pwa-lab</code></li>
-          <li>بعد از <code>write test row</code> یک رکورد باید ظاهر شود</li>
-        </ol>
-        <p>اگر <code>quota</code> چند گیگابایت است یعنی دفتر و متای روز برای سال‌ها جا دارد. گلوگاه معمولاً سهم دیسک نیست؛ گلوگاه این است که صف همگام‌سازی را خودت پاک نکنی و <code>service worker</code> کهنه فایل منطق را نگه دارد.</p>
-        <div class="flags" data-id="idb"></div>
-      </div>
-
-      <h2 id="c-gh">اگر GitHub بخوابد یعنی چه</h2>
-      <div class="card lab" data-lab="gh">
-        <p><code>GitHub Pages</code> فایل‌های استاتیک را از همین مخزن روی دامنه‌ای مثل این سرو می‌کند:</p>
-        <pre>https://USER.github.io/REPO/</pre>
-        <p><code>اگر GitHub بخوابد</code> یعنی <code>github.com</code> یا <code>github.io</code> جواب نمی‌دهد: <code>DNS</code> می‌میرد یا <code>HTTP</code> خطا می‌دهد. آن وقت:</p>
-        <ol>
-          <li>نصب تازه / دانلود فایل تازه: نمی‌شود</li>
-          <li>اگر قبلاً این صفحه را باز کرده‌ای و <code>service worker</code> کش کرده: آفلاین همان پوسته باز می‌شود</li>
-          <li><code>IndexedDB</code> روی دستگاه توست؛ خوابیدن گیت‌هاب آن را پاک نمی‌کند</li>
-          <li>همگام‌سازی به <code>Apps Script</code> ربطی به گیت‌هاب ندارد؛ آن به <code>script.google.com</code> می‌رود. گیت‌هاب خواب باشد، شیت ممکن است هنوز زنده باشد</li>
-        </ol>
-        <p class="do">شبیه‌سازی بدون منتظر ماندن برای خواب واقعی</p>
-        <ol>
-          <li><code>Network</code> → <code>Offline</code></li>
-          <li>Reload</li>
-          <li>اگر صفحه ماند، یعنی کش کار کرد. این همان سناریوی خواب گیت‌هاب برای فایل‌های استاتیک است</li>
-        </ol>
-        <div class="row">
-          <button type="button" id="originPing">fetch this origin</button>
-        </div>
-        <div class="out" id="ghOut">—</div>
-        <div class="flags" data-id="gh"></div>
-      </div>
-
-      <h2 id="c-bundle">چرا یک پروندهٔ JS بدون bundler</h2>
-      <div class="card lab" data-lab="bundle">
-        <p><code>bundler</code> یعنی ابزارهایی مثل <code>Vite</code> / <code>webpack</code>: چند فایل را قاطی می‌کنند، خروجی <code>dist/</code> می‌سازند، مرورگر آن خروجی را می‌خورد نه سورس تو.</p>
-        <p><code>GitHub Pages</code> بیلد نمی‌زند مگر خودت <code>GitHub Action</code> بگذاری. چیزی که <code>git push</code> می‌کنی همان را وب‌سرور می‌دهد. پس اگر <code>app.js</code> را فرستادی، مرورگر همان را اجرا می‌کند.</p>
-        <p class="do">روی همین لَب</p>
-        <ol>
-          <li>راست‌کلیک روی صفحه → <code>View page source</code></li>
-          <li>لینک <code>manifest.json</code> را باز کن</li>
-          <li>در آدرس بار بزن:</li>
-        </ol>
-        <pre>./sw.js</pre>
-        <p>متن خام <code>sw.js</code> را می‌بینی. هیچ <code>npm run build</code> وسط نیست. برای همین یک پرونده بدون باندلر: همان را که می‌فرستی همان را مرورگر می‌خورد.</p>
-        <div class="flags" data-id="bundle"></div>
-      </div>
-
-      <h2 id="c-install">نصب همین لَب به‌عنوان PWA</h2>
-      <div class="card lab" data-lab="install">
-        <p>این پروژه جداست. آیکون اپ قبلی را دست نزن.</p>
-        <ol>
-          <li>این صفحه را در <code>Edge</code> باز کن (بعد از اینکه روی <code>GitHub Pages</code> باشد، یا حتی از فایل لوکال محدودیت دارد؛ نصب واقعی روی <code>https</code> است)</li>
-          <li>آیکون نصب در نوار آدرس، یا <code>⋯</code> → <code>Apps</code> → <code>Install this site as an app</code></li>
-          <li>بعد میانبر را از <code>edge://apps</code> بساز، نه از پوشهٔ استارت‌منو</li>
-        </ol>
-        <div class="out" id="installOut">—</div>
-        <div class="flags" data-id="install"></div>
-      </div>
-
-      <h2 id="c-script">Apps Script جدید، جدا</h2>
-      <div class="card lab" data-lab="script">
-        <p>اپ قبلی را باز نکن. یک پروژهٔ جدید:</p>
-        <ol>
-          <li>یک <code>Google Sheet</code> خالی بساز</li>
-          <li><code>Extensions</code> → <code>Apps Script</code></li>
-          <li>محتوای فایل داخل همین مخزن را بچسبان:</li>
-        </ol>
-        <pre>Code.gs.example</pre>
-        <ol start="4">
-          <li><code>SHEET_ID</code> همان شیت جدید</li>
-          <li><code>SECRET</code> را عوض کن، مال اپ قبلی را کپی نکن</li>
-          <li><code>Deploy</code> → <code>New deployment</code> → <code>Web app</code></li>
-        </ol>
-        <p>این فقط برای یادداشت لَب است. به دفتر روزانه وصل نیست.</p>
-        <div class="flags" data-id="script"></div>
-      </div>
-
-      <h2 id="c-resume">چک‌لیست و پرچم خون</h2>
-      <div class="card">
-        <p>تیک‌ها و پرچم‌ها در <code>localStorage</code> می‌مانند. کلیدها:</p>
-        <pre>pwa-lab-done
-pwa-lab-bleed
-pwa-lab-scroll
-pwa-lab-clock</pre>
-        <button type="button" id="wipeProgress">wipe my ticks (keep files)</button>
-      </div>
     </main>
 
-    <nav id="toc" aria-label="TOC">
-      <p style="margin:6px 0;color:var(--acc);font-weight:700">TOC</p>
-      <input class="search" id="tocFilter" placeholder="filter" />
-      <details open>
-        <summary>دست‌ها</summary>
-        <a href="#c-map">نقشه</a>
-        <a href="#c-win">Windows shortcut</a>
-        <a href="#c-sw">service worker</a>
-        <a href="#c-manifest">manifest 200</a>
-        <a href="#c-stale">stale SW</a>
-        <a href="#c-idb">IndexedDB quota</a>
-        <a href="#c-gh">GitHub down</a>
-        <a href="#c-bundle">no bundler</a>
-        <a href="#c-install">install this lab</a>
-        <a href="#c-script">new Apps Script</a>
-        <a href="#c-resume">ticks</a>
-      </details>
-      <p style="color:var(--dim);font-size:12px">روی لینک بزن. تیک داخل هر کارت ذخیره می‌شود.</p>
+    <nav id="toc">
+      <p style="margin:4px 0 10px;font-weight:800;color:var(--gold)">menu</p>
+      <a href="#how">چطور</a>
+      <a href="#l01">L01 html</a>
+      <a href="#l02">L02 css</a>
+      <a href="#l03">L03 $</a>
+      <a href="#l04">L04 clock</a>
+      <a href="#l05">L05 menu</a>
+      <a href="#l06">L06 manifest</a>
+      <a href="#l07">L07 fetch 200</a>
+      <a href="#l08">L08 register SW</a>
+      <a href="#l09">L09 install</a>
+      <a href="#l10">L10 activate</a>
+      <a href="#l11">L11 fetch</a>
+      <a href="#l12">L12 IndexedDB</a>
+      <a href="#l13">L13 add</a>
+      <a href="#l14">L14 all</a>
+      <a href="#l15">L15 queue</a>
+      <a href="#l16">L16 GitHub down</a>
+      <a href="#l17">L17 no bundler</a>
+      <a href="#l18">L18 script</a>
+      <a href="#l19">L19 POST</a>
+      <a href="#l20">L20 boot</a>
+      <a href="#win">Windows shortcut</a>
     </nav>
   </div>
 
   <script>
-    const LS_DONE = "pwa-lab-done";
-    const LS_BLEED = "pwa-lab-bleed";
-    const LS_SCROLL = "pwa-lab-scroll";
-    const LS_CLOCK = "pwa-lab-clock";
-    const LS_RUN = "pwa-lab-clock-run";
+    const LS_DONE = "fz-done";
+    const LS_BLEED = "fz-bleed";
+    const LS_SCROLL = "fz-scroll";
+    const LS_CLOCK = "fz-studio-clock";
+    const LS_RUN = "fz-studio-run";
+    const LS_TOC = "fz-studio-toc";
 
     const $ = (s, r = document) => r.querySelector(s);
     const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+    const load = (k, f) => { try { return JSON.parse(localStorage.getItem(k)) ?? f; } catch { return f; } };
+    const save = (k, v) => localStorage.setItem(k, JSON.stringify(v));
 
-    function load(key, fallback) {
-      try { return JSON.parse(localStorage.getItem(key)) ?? fallback; }
-      catch { return fallback; }
-    }
-    function save(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
-
-    function bytes(n) {
-      if (!Number.isFinite(n)) return String(n);
-      const u = ["B", "KB", "MB", "GB", "TB"];
-      let i = 0;
-      while (n >= 1024 && i < u.length - 1) { n /= 1024; i++; }
-      return n.toFixed(i ? 2 : 0) + " " + u[i];
-    }
-
-    /* flags */
     function mountFlags() {
       const done = load(LS_DONE, {});
       const bleed = load(LS_BLEED, {});
       $$(".flags").forEach((el) => {
         const id = el.dataset.id;
-        el.innerHTML = "";
-        const d = document.createElement("label");
-        d.className = "flag";
-        d.innerHTML = `<input type="checkbox" data-done="${id}" ${done[id] ? "checked" : ""}> done`;
-        const b = document.createElement("label");
-        b.className = "flag";
-        b.innerHTML = `<input type="checkbox" data-bleed="${id}" ${bleed[id] ? "checked" : ""}> اینجا خوندم`;
-        el.append(d, b);
+        el.innerHTML =
+          `<label class="flag"><input type="checkbox" data-done="${id}" ${done[id] ? "checked" : ""}> done</label>` +
+          `<label class="flag"><input type="checkbox" data-bleed="${id}" ${bleed[id] ? "checked" : ""}> اینجا خوندم</label>`;
         el.closest(".lab")?.classList.toggle("bleed", !!bleed[id]);
       });
-      paintToc();
-      paintProg();
+      paintToc(); paintProg();
     }
     function paintToc() {
       const done = load(LS_DONE, {});
       const bleed = load(LS_BLEED, {});
+      const map = {
+        l01:"l01", l02:"l02", l03:"l03", l04:"l04", l05:"l05", l06:"l06", l07:"l07",
+        l08:"l08", l09:"l09", l10:"l10", l11:"l11", l12:"l12", l13:"l13", l14:"l14",
+        l15:"l15", l16:"l16", l17:"l17", l18:"l18", l19:"l19", l20:"l20", win:"win"
+      };
       $$("#toc a[href^='#']").forEach((a) => {
-        const href = a.getAttribute("href").slice(1);
-        const map = {
-          "c-win": "win", "c-sw": "sw", "c-manifest": "manifest", "c-stale": "stale",
-          "c-idb": "idb", "c-gh": "gh", "c-bundle": "bundle", "c-install": "install", "c-script": "script"
-        };
-        const id = map[href];
+        const id = map[a.getAttribute("href").slice(1)];
         a.classList.toggle("done", !!(id && done[id]));
         a.classList.toggle("bled", !!(id && bleed[id]));
       });
@@ -516,8 +516,7 @@ pwa-lab-clock</pre>
       if (t.dataset.done) {
         const done = load(LS_DONE, {});
         done[t.dataset.done] = t.checked;
-        save(LS_DONE, done);
-        paintToc(); paintProg();
+        save(LS_DONE, done); paintToc(); paintProg();
       }
       if (t.dataset.bleed) {
         const bleed = load(LS_BLEED, {});
@@ -528,7 +527,6 @@ pwa-lab-clock</pre>
       }
     });
 
-    /* stopwatch */
     let acc = Number(localStorage.getItem(LS_CLOCK) || 0);
     let t0 = 0;
     let timer = null;
@@ -536,13 +534,11 @@ pwa-lab-clock</pre>
       const ms = acc + (timer ? Date.now() - t0 : 0);
       const s = Math.floor(ms / 1000);
       const m = Math.floor(s / 60);
-      const r = s % 60;
-      const d = Math.floor((ms % 1000) / 100);
-      $("#clock").textContent = String(m).padStart(2, "0") + ":" + String(r).padStart(2, "0") + "." + d;
+      $("#clock").textContent =
+        String(m).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0") + "." + Math.floor((ms % 1000) / 100);
     }
     function persistClock() {
-      const ms = acc + (timer ? Date.now() - t0 : 0);
-      localStorage.setItem(LS_CLOCK, String(timer ? acc + (Date.now() - t0) : acc));
+      localStorage.setItem(LS_CLOCK, String(acc + (timer ? Date.now() - t0 : 0)));
       localStorage.setItem(LS_RUN, timer ? "1" : "0");
     }
     $("#swStart").onclick = () => {
@@ -567,179 +563,32 @@ pwa-lab-clock</pre>
     }
     renderClock();
 
-    $("#freezeLock").onchange = () => {
-      $("#freeze").style.position = $("#freezeLock").checked ? "sticky" : "relative";
+    const layout = $("#layout");
+    if (localStorage.getItem(LS_TOC) === "1") layout.classList.add("toc-off");
+    $("#btnMenu").onclick = () => {
+      layout.classList.toggle("toc-off");
+      localStorage.setItem(LS_TOC, layout.classList.contains("toc-off") ? "1" : "0");
     };
 
-    $("#tocToggle").onclick = () => $("#layout").classList.toggle("notoc");
-    $("#focusBtn").onclick = () => {
-      $("#layout").classList.add("notoc");
-      document.documentElement.requestFullscreen?.();
-    };
+    window.addEventListener("online", () => { $("#onlineChip").textContent = "online"; });
+    window.addEventListener("offline", () => { $("#onlineChip").textContent = "offline"; });
+    $("#onlineChip").textContent = navigator.onLine ? "online" : "offline";
 
-    /* copy */
     document.addEventListener("click", async (e) => {
       const btn = e.target.closest("[data-copy]");
       if (!btn) return;
       await navigator.clipboard.writeText(btn.dataset.copy);
       btn.textContent = "copied";
-      setTimeout(() => { btn.textContent = "copy " + btn.dataset.copy.split("://").pop().slice(0, 18); }, 900);
     });
-
-    /* online + quota + sw chip */
-    function paintOnline() {
-      const on = navigator.onLine;
-      const el = $("#onlineChip");
-      el.textContent = on ? "online" : "offline";
-      el.className = "chip " + (on ? "on" : "off");
-    }
-    window.addEventListener("online", paintOnline);
-    window.addEventListener("offline", paintOnline);
-    paintOnline();
-
-    async function paintQuota() {
-      if (!navigator.storage?.estimate) {
-        $("#quotaChip").textContent = "quota n/a";
-        return;
-      }
-      const e = await navigator.storage.estimate();
-      $("#quotaChip").textContent = "used " + bytes(e.usage) + " / " + bytes(e.quota);
-    }
-    paintQuota();
-
-    async function paintSwChip() {
-      const el = $("#swChip");
-      if (!("serviceWorker" in navigator)) { el.textContent = "SW unsupported"; el.className = "chip off"; return; }
-      const reg = await navigator.serviceWorker.getRegistration();
-      if (reg?.active) { el.textContent = "SW active"; el.className = "chip on"; }
-      else { el.textContent = "SW none"; el.className = "chip off"; }
-    }
-    paintSwChip();
-
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("./sw.js").finally(paintSwChip);
-    }
-
-    $("#swReg").onclick = async () => {
-      try {
-        const r = await navigator.serviceWorker.register("./sw.js");
-        $("#swOut").textContent = "registered\nscope: " + r.scope + "\nactive: " + !!(r.active || r.installing || r.waiting);
-      } catch (err) {
-        $("#swOut").textContent = String(err);
-      }
-      paintSwChip();
-    };
-    $("#swUnreg").onclick = async () => {
-      const regs = await navigator.serviceWorker.getRegistrations();
-      for (const r of regs) await r.unregister();
-      $("#swOut").textContent = "unregistered " + regs.length;
-      paintSwChip();
-    };
-    $("#swStatus").onclick = async () => {
-      const regs = await navigator.serviceWorker.getRegistrations();
-      const cachesKeys = await caches.keys();
-      $("#swOut").textContent = JSON.stringify({
-        controller: !!navigator.serviceWorker.controller,
-        regs: regs.map((r) => ({ scope: r.scope, active: r.active?.state, waiting: r.waiting?.state })),
-        caches: cachesKeys
-      }, null, 2);
-    };
-
-    $("#manFetch").onclick = async () => {
-      const t0 = performance.now();
-      const res = await fetch("./manifest.json");
-      const txt = await res.text();
-      $("#manOut").textContent =
-        "status: " + res.status + " " + res.statusText + "\n" +
-        "ok: " + res.ok + "\n" +
-        "type: " + res.type + "\n" +
-        "ms: " + Math.round(performance.now() - t0) + "\n" +
-        "body:\n" + txt;
-    };
-    $("#manHard").onclick = async () => {
-      const res = await fetch("./manifest.json", { cache: "reload" });
-      $("#manOut").textContent = "cache:reload status " + res.status + "\n" + await res.text();
-    };
-
-    const DB = "pwa-lab";
-    const STORE = "notes";
-    function idb() {
-      return new Promise((resolve, reject) => {
-        const req = indexedDB.open(DB, 1);
-        req.onupgradeneeded = () => req.result.createObjectStore(STORE, { keyPath: "id", autoIncrement: true });
-        req.onsuccess = () => resolve(req.result);
-        req.onerror = () => reject(req.error);
-      });
-    }
-    $("#idbEst").onclick = async () => {
-      const e = await navigator.storage.estimate();
-      $("#idbOut").textContent =
-        "usage: " + bytes(e.usage) + " (" + e.usage + " bytes)\n" +
-        "quota: " + bytes(e.quota) + " (" + e.quota + " bytes)\n" +
-        "percent: " + (e.quota ? ((100 * e.usage / e.quota).toFixed(4) + "%") : "n/a");
-      paintQuota();
-    };
-    $("#idbWrite").onclick = async () => {
-      const db = await idb();
-      await new Promise((resolve, reject) => {
-        const tx = db.transaction(STORE, "readwrite");
-        tx.objectStore(STORE).add({ at: Date.now(), note: "lab row" });
-        tx.oncomplete = resolve; tx.onerror = () => reject(tx.error);
-      });
-      $("#idbOut").textContent = "wrote 1 row into IndexedDB " + DB + " / " + STORE;
-      paintQuota();
-    };
-    $("#idbRead").onclick = async () => {
-      const db = await idb();
-      const rows = await new Promise((resolve, reject) => {
-        const tx = db.transaction(STORE, "readonly");
-        const rq = tx.objectStore(STORE).getAll();
-        rq.onsuccess = () => resolve(rq.result);
-        rq.onerror = () => reject(rq.error);
-      });
-      $("#idbOut").textContent = JSON.stringify(rows, null, 2);
-    };
-    $("#idbClear").onclick = async () => {
-      indexedDB.deleteDatabase(DB);
-      $("#idbOut").textContent = "deleted database " + DB;
-      paintQuota();
-    };
-
-    $("#originPing").onclick = async () => {
-      try {
-        const res = await fetch("./index.html", { cache: "no-store" });
-        $("#ghOut").textContent = "origin fetch status " + res.status + "\nnavigator.onLine=" + navigator.onLine + "\nIf GitHub Pages is down, this fetch fails unless service worker answers from Cache Storage.";
-      } catch (err) {
-        $("#ghOut").textContent = "fetch failed: " + err + "\nonLine=" + navigator.onLine + "\nThis is what GitHub-down looks like for static files. IndexedDB on this device still exists.";
-      }
-    };
-
-    if (window.matchMedia("(display-mode: standalone)").matches) {
-      $("#installOut").textContent = "display-mode: standalone — this lab is running as installed PWA";
-    } else {
-      $("#installOut").textContent = "display-mode: browser — not installed yet, or opened as a tab";
-    }
-
-    $("#wipeProgress").onclick = () => {
-      [LS_DONE, LS_BLEED, LS_SCROLL].forEach((k) => localStorage.removeItem(k));
-      mountFlags();
-    };
 
     $("#q").addEventListener("input", () => {
       const s = $("#q").value.trim().toLowerCase();
-      $$("main .card, main h2").forEach((el) => {
+      $$("main h2, main .card").forEach((el) => {
         el.style.display = !s || el.textContent.toLowerCase().includes(s) ? "" : "none";
       });
     });
-    $("#tocFilter").addEventListener("input", () => {
-      const s = $("#tocFilter").value.trim().toLowerCase();
-      $$("#toc a").forEach((a) => { a.style.display = !s || a.textContent.toLowerCase().includes(s) ? "" : "none"; });
-    });
 
-    /* resume scroll */
-    window.addEventListener("scroll", () => {
-      localStorage.setItem(LS_SCROLL, String(window.scrollY));
-    }, { passive: true });
+    window.addEventListener("scroll", () => localStorage.setItem(LS_SCROLL, String(window.scrollY)), { passive: true });
     const y = Number(localStorage.getItem(LS_SCROLL) || 0);
     if (y > 0) requestAnimationFrame(() => window.scrollTo(0, y));
 
@@ -748,6 +597,11 @@ pwa-lab-clock</pre>
     new ResizeObserver(syncHdr).observe(hdr);
     syncHdr();
     mountFlags();
+
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.getRegistrations().then((rs) => rs.forEach((r) => r.unregister()));
+      caches.keys().then((keys) => keys.forEach((k) => caches.delete(k)));
+    }
   </script>
 </body>
 </html>
